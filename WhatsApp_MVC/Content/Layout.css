@@ -1,0 +1,230 @@
+﻿html {
+    height: 100vh;
+    background: linear-gradient(to bottom, #009688 100px, #DADBD4 100px);
+}
+
+body {
+    margin: auto;
+    width: 73vw;
+    height: 90vh;
+    
+}
+
+.chatbox-header {
+    background-color: #EEEEEE;
+    border-style: solid;
+    border-width: 1px 1px 0 1px;
+    border-color: #D2D7D4;
+    margin-top: 15px;
+    margin-bottom: 0;
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+    /*height: 45px;*/
+}
+
+.chatbox-header img {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    margin-left: 10px;
+    margin-right: 10px;
+    float: left;
+}
+
+.chatbox-header-text {
+    overflow: auto;
+}
+
+.chatbox-name {
+    font-size: 1.2em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.chatbox-details {
+    color: #5F5F5F;
+    font-size: 0.9em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.msg-body {
+    height: 100%;
+    overflow: auto;
+    margin-top: 0;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #C4C6C0;
+    border-radius: 0 0 5px 5px;
+    background-image: url('../IMG/chat-background.jpg');
+    background-size: 599px 852px;
+}
+
+ol {
+    list-style-type: none;
+}
+
+li.day-date-marker {
+    display: flex;
+    position: relative;
+    justify-content: center;
+}
+
+li.others-header {
+    display: flex;
+    position: relative;
+    margin-top: 25px;
+    margin-left: 50px;
+    left: -50px;
+}
+
+li.others {
+    display: flex;
+    position: relative;
+    margin-top: 2px;
+    margin-left: 50px;
+    left: -50px;
+}
+
+li.self-header {
+    display: flex;
+    position: relative;
+    justify-content: flex-end;
+    margin-top: 25px;
+    margin-right: 50px;
+}
+
+li.self {
+    display: flex;
+    position: relative;
+    justify-content: flex-end;
+    margin-top: 2px;
+    margin-right: 50px;
+}
+
+.msg-bubble {
+    padding: 8px;
+    display: inline-block;
+    position: relative;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #DED6CE;
+    border-radius: 5px;
+    max-width: 55%;
+    word-wrap: break-word;
+}
+
+.msg-others {
+    background-color: #FFFFFF;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.8em;
+}
+
+.msg-self {
+    background-color: #DCF8C6;
+    justify-content: flex-end;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.8em;
+}
+
+.msg-reply-text-bubble-others {
+    background-color: #E5E5E5;
+    border-radius: 5px;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-left-style: solid;
+    border-left-width: 5px;
+}
+
+.msg-reply-text-bubble-self {
+    background-color: #C6DFB2;
+    border-radius: 5px;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-left-style: solid;
+    border-left-width: 5px;
+}
+
+.msg-reply-image-bubble-others {
+    display: flex;
+    position: relative;
+    background-color: #E5E5E5;
+    border-radius: 5px;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-left-style: solid;
+    border-left-width: 5px;
+}
+
+.image-reply-container {
+    display: flex;
+    height: 55px;
+    width: 55px;
+    overflow: hidden;
+    justify-content: center;
+}
+
+.image-reply {
+    position: relative;
+    height: 55px;
+    width: auto;
+    z-index: 1;
+}
+
+.msg-notification {
+    background-color: #E1F3FB;
+    font-family: 'Open Sans', sans-serif;
+    color: #4D626C;
+    font-size: 0.9em;
+    padding: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+time {
+    float: right;
+    margin-left: 10px;
+    vertical-align: sub;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.8em;
+    color: #8C8C8C;
+}
+
+
+li img {
+    width: 100%;
+}
+
+.img-container {
+    padding: 10px;
+    display: inline-block;
+    position: relative;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #DED6CE;
+    border-radius: 10px;
+    max-width: 25%;
+    word-wrap: break-word;
+}
+
+li video {
+    max-width: 100%;
+}
+
+.video-container {
+    padding: 10px;
+    display: inline-block;
+    position: relative;
+    margin-top: 5px; /*for some unknown reason, sometimes, video chats top border will touch other chat's border, so have to put this margin for safety. this issue have not been encountered for img chat box*/
+    border-style: solid;
+    border-width: 1px;
+    border-color: #DED6CE;
+    border-radius: 10px;
+    max-width: 25%;
+    word-wrap: break-word;
+}
