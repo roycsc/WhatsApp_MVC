@@ -1,11 +1,11 @@
-﻿
+﻿@model WhatsApp_MVC.Models.ChatViewModel
 @{
     Layout = null;
 }
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en-us">
 <head>
     <meta charset="utf-8" />
     <title>Whatsapp History</title>
@@ -14,7 +14,7 @@
 </head>
 <body>
     <div class="chatbox-header">
-        <img src="../IMG/group%20name%20icon.jpg" />
+        <img src="~/Content/IMG/image1.jpg" />
         <div class="chatbox-header-text">
             <div class="chatbox-name">The Group Name That Is Very Long</div>
             <div class="chatbox-details">Alexander, Chin Foong, Kelvin, Kevin, Dale Martin, 012 258 4652</div> <!-- rules for name extraction, where n = number of words in full name, if n <=3, display n-1, else, display n-(n-1) -->
@@ -22,171 +22,12 @@
     </div>
     <div class="msg-body">
         <ol class="">
-            <li class="day-date-marker">
-                <div class="msg-bubble msg-notification">
-                    24/1/2017
-                </div>
-            </li>
-            <li class="others-header">
-                <div class="msg-bubble msg-others">
-                    <strong class="author-color-4">Kelvin Lee Ee Keong</strong><br />
-                    someone else talking<br />
-                    someone else talking on a second paragraph but within same chat box 😊
-                    <time><br />5:10 PM</time>
-                </div>
-            </li>
-            <li class="self-header">
-                <div class="msg-bubble msg-self">
-                    i am talking<br />
-                    i am talking on a second paragraph but within the same chat box<br />
-                    also i am testing word wrap on a single long word aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    <time><br />10:09 PM</time>
-                </div>
-            </li>
-            <li class="self">
-                <div class="msg-bubble msg-self">
-                    talking to myself with a very loooooooooooooooooooooooooooooooooooooooooooooooooooong chat .. .. .. . . . .... . .. . . . . . .  . . . . . .  .. .  .. . . . .  .. . . . . ....... ..... ....... ... . . . . . . .. . . .... . . . ... . . . . . ... . .  ..  . . . . . . . . . . .
-                    <time><br />10:09 PM</time>
-                </div>
-            </li>
-            <li class="self">
-                <div class="msg-self img-container">
-                    <img src="../IMG/image2.jpg" />
-                    <time><br />10:09 PM</time>
-                </div>
-            </li>
-            <li class="self">
-                <div class="msg-self img-container">
-                    <img src="../IMG/image2.jpg" />
-                    this is a very long caption for testing ... . .. . . . . . . . . . . .  . . . . . . . . . ....... . . . . .  .. ... . .... . .. . . ..... . ...... . .... ... .... ........ ..... ..... .... .. ... .... ...... .... .... ..... .... .....
-                    <time><br />10:09 PM</time>
-                </div>
-            </li>
-            <li class="self">
-                <div class="msg-self video-container">
-                    <video controls>
-                        <source src="../Video/stock-footage-hamster.mp4" type="video/mp4" />
-                        Video format not supported
-                    </video>
-                    <time><br />10:09 PM</time>
-                </div>
-            </li>
-            <li class="self">
-                <div class="msg-self video-container">
-                    <video controls>
-                        <source src="../Video/stock-footage-hamster.mp4" type="video/mp4" />
-                        Video format not supported
-                    </video>
-                    this is a very long caption for testing ... . .. . . . . . . . . . . .  . . . . . . . . . ....... . . . . .  .. ... . .... . .. . . ..... . ...... . .... ... .... ........ ..... ..... .... .. ... .... ...... .... .... ..... .... .....
-                    <time><br />10:09 PM</time>
-                </div>
-            </li>
-            <li class="others-header">
-                <div class="msg-bubble msg-others">
-                    <strong class="author-color-4">Kelvin Lee Ee Keong</strong><br />
-                    someone else talking
-                    <time><br />10:09 PM</time>
-                </div>
-            </li>
-            <li class="others">
-                <div class="msg-bubble msg-others">
-                    someone else talking<br />
-                    someone else talking on a second paragraph but within same chat box
-                    <time><br />10:09 PM</time>
-                </div>
-            </li>
-            <li class="day-date-marker">
-                <div class="msg-bubble msg-notification">
-                    YESTERDAY
-                </div>
-            </li>
-            <li class="others-header">
-                <div class="msg-bubble msg-others">
-                    <strong class="author-color-2">Jackson Hoe</strong><br />
-                    2nd person talking
-                    <time><br />10:09 PM</time>
-                </div>
-            </li>
-            <li class="others">
-                <div class="msg-bubble msg-others">
-                    2nd person talking<br />
-                    2nd person talking on a second paragraph but within same chat box
-                    <time><br />10:09 PM</time>
-                </div>
-            </li>
-            <li>
-                <div class="msg-others video-container">
-                    <video controls>
-                        <source src="../Video/stock-footage-hamster.mp4" type="video/mp4" />
-                        Video format not supported
-                    </video>
-                    <time><br />10:09 PM</time>
-                </div>
-            </li>
-            <li class="others">
-                <div class="msg-bubble msg-others">
-                    2nd person talking
-                    <time><br />10:09 PM</time>
-                </div>
-            </li>
-            <li class="others">
-                <div class="msg-others img-container">
-                    <img src="../IMG/image1.jpg" />
-                    this is a caption
-                    <time><br />10:09 PM</time>
-                </div>
-            </li>
-            <li class="others">
-                <div class="msg-bubble msg-others">
-                    2nd person talking
-                    <time><br />10:09 PM</time>
-                </div>
-            </li>
-            <li class="others-header">
-                <div class="msg-bubble msg-others">
-                    <strong class="author-color-3">Chin Foong</strong><br />
-                    3rd person talking
-                    <time><br />10:09 PM</time>
-                </div>
-            </li>
-            <li class="others">
-                <div class="msg-bubble msg-others">
-                    <strong class="author-color-3">Chin Foong</strong><br />
-                    <div class="msg-reply-text-bubble-others quoted-color-4">
-                        <strong class="author-color-4">Kelvin Lee Ee Keong</strong><br />
-                        <div class="msg-reply-text">
-                            someone else talking<br />
-                            someone else talking on a second paragraph but within same chat box 😊
-                        </div>
-                    </div>
-                    3rd person talking
-                    <time><br />10:09 PM</time>
-                </div>
-            </li>
-            <li class="self">
-                <div class="msg-bubble msg-self">
-                    <div class="msg-reply-text-bubble-self quoted-color-3">
-                        <strong class="author-color-3">Chin Foong</strong><br />
-                        3rd person talking
-                    </div>
-                    replying someone 😊
-                </div>
-            </li>
-            <li class="others-header">
-                <div class="msg-bubble msg-others">
-                    <strong class="author-color-3">Chin Foong</strong><br />
-                    <div class="msg-reply-image-bubble-others quoted-color-1">
-                        <div>
-                            <strong class="author-color-1">You</strong><br />
-                            this is a very long caption for testing ... . .. . . . . . . . . . . . . . . . . . . . . ....... . . . . . .. ... . .... . .. . . ..... . ...... . .... ... .... ........ ..... ..... .... .. ... .... ...... .... .... ..... .... .....this is a very long caption for testing ... . .. . . . . . . . . . . . . . . . . . . . . ....... . . . . . .. ... . .... . .. . . ..... . ...... . .... ... .... ........ ..... ..... .... .. ... .... ...... .... .... ..... .... .....this is a very long caption for testing ... . .. . . . . . . . . . . . . . . . . . . . . ....... . . . . . .. ... . .... . .. . . ..... . ...... . .... ... .... ........ ..... ..... .... .. ... .... ...... .... .... ..... .... .....this is a very long caption for testing ... . .. . . . . . . . . . . . . . . . . . . . . ....... . . . . . .. ... . .... . .. . . ..... . ...... . .... ... .... ........ ..... ..... .... .. ... .... ...... .... .... ..... .... .....
-                        </div>
-                        <div class="image-reply-container">
-                            <img src="../IMG/image2.jpg" class="image-reply" />
-                        </div>
-                    </div>
-                    haha
-                </div>
-            </li>
+            @{ 
+                foreach (var item in Model.FormattedMessage)
+                {
+                    @Html.Raw(item);
+                }
+            }
         </ol>
     </div>
 </body>

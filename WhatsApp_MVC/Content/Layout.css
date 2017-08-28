@@ -19,7 +19,6 @@ body {
     margin-bottom: 0;
     padding: 10px;
     border-radius: 5px 5px 0 0;
-    /*height: 45px;*/
 }
 
 .chatbox-header img {
@@ -58,7 +57,7 @@ body {
     border-width: 1px;
     border-color: #C4C6C0;
     border-radius: 0 0 5px 5px;
-    background-image: url('../IMG/chat-background.jpg');
+    background-image: url('IMG/chat-background.jpg');
     background-size: 599px 852px;
 }
 

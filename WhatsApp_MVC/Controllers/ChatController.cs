@@ -13,7 +13,9 @@ namespace WhatsApp_MVC.Controllers
         private SQLiteConnection _sqliteConnection = 
             new SQLiteConnection("Data Source=|DataDirectory|msgstore.db;Version=3");
         private SQLiteDataReader _sqliteReader;
-        private List<Messages> _messagesList = new List<Messages>();
+        private List<TableRow_Messages> _messagesList = new List<TableRow_Messages>();
+        private List<TableRow_Messages_Quotes> _messagesQuotesList = new List<TableRow_Messages_Quotes>();
+        private ChatViewModel chatViewModel = new ChatViewModel();
 
         // GET: Chat
         public ActionResult Index()
@@ -25,83 +27,93 @@ namespace WhatsApp_MVC.Controllers
                 catch (Exception e)
                 { Console.WriteLine(e.Message); }
 
-                var sqlCommand = _sqliteConnection.CreateCommand();
-
-                sqlCommand.CommandText = "SELECT * FROM messages WHERE data IS NOT NULL OR media_enc_hash IS NOT NULL";
-
-                _sqliteReader = sqlCommand.ExecuteReader();
-
-                while (_sqliteReader.Read())
+                using (var sqlCommand = _sqliteConnection.CreateCommand())
                 {
-                    var values = _sqliteReader.GetValues();
-                    var messageRow = new Messages();
+                    sqlCommand.CommandText = "SELECT * FROM messages WHERE data IS NOT NULL OR media_mime_type IS NOT NULL";
+                    _sqliteReader = sqlCommand.ExecuteReader();
 
-                    messageRow.Id = Convert.ToInt32(values["_id"]);
-                    messageRow.key_remote_jid = values["key_remote_jid"];
-                    messageRow.key_from_me = Convert.ToBoolean(values["key_from_me"]);
-                    messageRow.Data = values["data"];
-                    messageRow.timestamp = Convert.ToInt64(values["timestamp"]);
-                    messageRow.mediam_mime_type = values["mediam_mime_type"];
-                    messageRow.media_size = Convert.ToInt64(values["media_size"]);
-                    messageRow.media_name = values["media_name"];
-                    messageRow.media_caption = values["media_caption"];
-                    messageRow.latitude = values["latitude"];
-                    messageRow.longtitude = values["longtitude"];
-                    messageRow.quoted_row_id = Convert.ToInt32(values["quoted_row_id"]);
+                    //messages table
+                    while (_sqliteReader.Read())
+                    {
+                        var values = _sqliteReader.GetValues();
+                        var messageRow = new TableRow_Messages();
 
-                    _messagesList.Add(messageRow);
+                        messageRow.Id = Convert.ToInt32(values["_id"]);
+                        messageRow.key_remote_jid = values["key_remote_jid"];
+                        {
+                            int tempKeyFromMe;
+                            Int32.TryParse(values["key_from_me"], out tempKeyFromMe);
+                            messageRow.key_from_me = tempKeyFromMe != 0;
+                        }
+                        messageRow.key_id = values["key_id"];
+                        messageRow.Data = values["data"];
+                        messageRow.timestamp = Convert.ToInt64(values["timestamp"]);
+                        messageRow.mediam_mime_type = values["mediam_mime_type"];
+                        messageRow.media_size = Convert.ToInt64(values["media_size"]);
+                        messageRow.media_name = values["media_name"];
+                        messageRow.media_caption = values["media_caption"];
+                        messageRow.latitude = values["latitude"];
+                        messageRow.longtitude = values["longtitude"];
+                        {
+                            Int32 tempQuotedRowId;
+                            Int32.TryParse(values["quoted_row_id"], out tempQuotedRowId);
+                            messageRow.quoted_row_id = tempQuotedRowId;
+                        }
+
+                        _messagesList.Add(messageRow);
+                    }
                 }
-            }
 
-            return View();
+                using (var sqlCommand = _sqliteConnection.CreateCommand())
+                {
+                    sqlCommand.CommandText = "SELECT * FROM messages_quotes WHERE data IS NOT NULL OR media_mime_type IS NOT NULL";
+                    _sqliteReader = sqlCommand.ExecuteReader();
+
+                    //meesages_quotes table
+                    while (_sqliteReader.Read())
+                    {
+                        var values = _sqliteReader.GetValues();
+                        var messageRow = new TableRow_Messages_Quotes();
+
+                        messageRow.Id = Convert.ToInt32(values["_id"]);
+                        messageRow.key_remote_jid = values["key_remote_jid"];
+                        {
+                            int tempKeyFromMe;
+                            Int32.TryParse(values["key_from_me"], out tempKeyFromMe);
+                            messageRow.key_from_me = tempKeyFromMe != 0;
+                        }
+                        messageRow.key_id = values["key_id"];
+                        messageRow.Data = values["data"];
+                        messageRow.timestamp = Convert.ToInt64(values["timestamp"]);
+                        messageRow.mediam_mime_type = values["mediam_mime_type"];
+                        messageRow.media_size = Convert.ToInt64(values["media_size"]);
+                        messageRow.media_name = values["media_name"];
+                        messageRow.media_caption = values["media_caption"];
+                        messageRow.latitude = values["latitude"];
+                        messageRow.longtitude = values["longtitude"];
+
+                        _messagesQuotesList.Add(messageRow);
+                    }
+                }                
+            }
+            
+            ChatFormatter.FormatChat(chatViewModel, _messagesList, _messagesQuotesList);
+
+            return View(chatViewModel);
         }
 
         //class to test sql validity, url syntax: localhost:xxxxx/chat/sqltest
-        public string sqlTest()
+        public string SqlTest()
         {
             //insert sql - START
-            using (_sqliteConnection)
-            {
-                try
-                { _sqliteConnection.Open(); }
-                catch (Exception e)
-                { Console.WriteLine(e.Message); }
-
-                var sqlCommand = _sqliteConnection.CreateCommand();
-
-                sqlCommand.CommandText = "SELECT * FROM messages WHERE data IS NOT NULL OR media_enc_hash IS NOT NULL";
-
-                _sqliteReader = sqlCommand.ExecuteReader();
-
-                while (_sqliteReader.Read())
-                {
-                    var values = _sqliteReader.GetValues();
-                    var messageRow = new Messages();
-
-                    messageRow.Id = Convert.ToInt32(values["_id"]);
-                    messageRow.key_remote_jid = values["key_remote_jid"];
-                    messageRow.key_from_me = Convert.ToBoolean(values["key_from_me"]);
-                    messageRow.Data = values["data"];
-                    messageRow.timestamp = Convert.ToInt64(values["timestamp"]);
-                    messageRow.mediam_mime_type = values["mediam_mime_type"];
-                    messageRow.media_size = Convert.ToInt64(values["media_size"]);
-                    messageRow.media_name = values["media_name"];
-                    messageRow.media_caption = values["media_caption"];
-                    messageRow.latitude = values["latitude"];
-                    messageRow.longtitude = values["longtitude"];
-                    messageRow.quoted_row_id = Convert.ToInt32(values["quoted_row_id"]);
-                    messageRow.media_enc_hash = values["media_ench_hash"];
-
-                    _messagesList.Add(messageRow);
-                }
-            }
+            
             //insert sql - END
 
             var temp = "";
-            foreach (var item in _messagesList)
-            {
-                temp += item.Id + "   " + item.Data + "   " + item.media_enc_hash + "<br/>";
-            }
+            //foreach (var item in _messagesQuotesList)
+            //{
+            //    temp += item.Id + "   " + item.Data + " | " + "<br/>";
+            //}
 
             return temp;
         }
