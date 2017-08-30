@@ -211,6 +211,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ChatFormatter.cs" />
     <Compile Include="Models\ChatViewModel.cs" />
+    <Compile Include="Models\ColorPicker.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\TableRow_Messages.cs" />
@@ -225,6 +226,7 @@
     <Content Include="Content\IMG\chat-background.jpg" />
     <Content Include="Content\IMG\image1.jpg" />
     <Content Include="Content\Layout.css" />
+    <Content Include="Content\HTML Template.html" />
     <Content Include="Content\Videos\video1.mp4" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

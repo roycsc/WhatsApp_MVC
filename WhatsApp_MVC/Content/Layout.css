@@ -129,7 +129,7 @@ li.self {
 }
 
 .msg-reply-text-bubble-others {
-    background-color: #E5E5E5;
+    background-color: #F2F2F2;
     border-radius: 5px;
     padding: 8px;
     margin-top: 5px;
@@ -147,11 +147,21 @@ li.self {
     border-left-style: solid;
     border-left-width: 5px;
 }
-
 .msg-reply-image-bubble-others {
     display: flex;
     position: relative;
-    background-color: #E5E5E5;
+    background-color: #F2F2F2;
+    border-radius: 5px;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-left-style: solid;
+    border-left-width: 5px;
+}
+.msg-reply-image-bubble-self {
+    display: flex;
+    position: relative;
+    background-color: #D1EBBC;
     border-radius: 5px;
     padding: 8px;
     margin-top: 5px;
@@ -166,6 +176,8 @@ li.self {
     width: 55px;
     overflow: hidden;
     justify-content: center;
+    border-radius: 0 5px 0 0;
+    margin-left: 10px;
 }
 
 .image-reply {
