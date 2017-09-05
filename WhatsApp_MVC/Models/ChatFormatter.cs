@@ -33,21 +33,19 @@ namespace WhatsApp_MVC.Models
             for (int i = 0; i < msg.Count; i++)
             {
                 isKeyFromMe = msg[i].key_from_me;
+                chatOwner = msg[i].remote_resource;
 
                 if (!isKeyFromMe && i > 0)
                 {
                     isChatHeader = (msg[i].remote_resource == msg[i - 1].remote_resource) ? false : true; //check if current chat same owner as previous chat
-                    chatOwner = msg[i].remote_resource;
                 }
                 else if (isKeyFromMe)
                 {
                     isChatHeader = false;
-                    chatOwner = chatOwner = msg[i].remote_resource;
                 }
                 else if (!isKeyFromMe && i == 0)
                 {
                     isChatHeader = true;
-                    chatOwner = msg[i].remote_resource;
                 }
                 else
                     isChatHeader = false; //should be logged if reach this section, above logic should cover all possibilities
@@ -61,12 +59,7 @@ namespace WhatsApp_MVC.Models
                 {
                     isQuotedMsg = false;
                 }
-
-                if (true)
-                {
-
-                }
-
+                
                 switch (msg[i].media_mime_type)
                 {
                     case "":
@@ -104,11 +97,11 @@ namespace WhatsApp_MVC.Models
                         //should just log instead of throw exception in future
                 }
 
-                chatViewModel.FormattedMessage.Add(ChatTemplater(msg[i], chatType, isChatHeader, isKeyFromMe, chatOwnerColor));
+                chatViewModel.FormattedMessage.Add(ChatTemplateSelector(msg[i], chatType, isChatHeader, isKeyFromMe, chatOwnerColor));
             }
         }
 
-        static private string ChatTemplater(TableRow_Messages msg, ChatTypeEnum chatType, bool isChatHeader, bool isKeyFromMe, ColorPicker chatOwnerColor)
+        static private string ChatTemplateSelector(TableRow_Messages msg, ChatTypeEnum chatType, bool isChatHeader, bool isKeyFromMe, ColorPicker chatOwnerColor)
         {
             switch (chatType)
             {
