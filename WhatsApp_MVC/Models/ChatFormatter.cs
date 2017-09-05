@@ -26,7 +26,7 @@ namespace WhatsApp_MVC.Models
         {
             string chatOwner;
             bool isKeyFromMe;
-            bool isChatHeader; //chatheader means the 1st conversation for a continuous msg from the same person, purpose is to display their name
+            bool isChatHeader; //chatheader means the 1st conversation for a continuous msg from the same person, purpose is to display their name in the bubble
             bool isQuotedMsg;
             ChatTypeEnum chatType;
 
