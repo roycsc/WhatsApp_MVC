@@ -294,7 +294,7 @@ namespace WhatsApp_MVC.Models
             }
 
             if (!isKeyFromMe)
-                chatOwner = $@"<strong>{msg.remote_resource}</strong><br/>";
+                chatOwner = $@"<strong class='author{chatNameColor}'>{msg.remote_resource}</strong><br/>";
             else
                 chatOwner = "";
             
@@ -345,13 +345,13 @@ namespace WhatsApp_MVC.Models
                 chatOwner = "";
 
             var htmlTemplate = $@"<li class='{liClass}'>
-                                    <div class='{divClass}>
+                                    <div class='{divClass}'>
                                         {chatOwner}
                                         <video controls><source src='../Content/Videos/video1.mp4' type='video/mp4' />Video format not supported</video>
                                         {msg.media_caption}
                                         <time><br/>{FormatTimeStamp(msg.timestamp)}</time>
                                     </div>
-                                </li>";            
+                                </li>";
 
             return htmlTemplate;
         }
