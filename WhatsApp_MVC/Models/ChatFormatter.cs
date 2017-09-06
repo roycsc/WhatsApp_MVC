@@ -130,72 +130,56 @@ namespace WhatsApp_MVC.Models
 
         static private string FormatNormalChat(TableRow_Messages msg, bool isChatHeader, bool isKeyFromMe, ColorPicker chatOwnerColor)
         {
-            string liOpenTag;
-            string liCloseTag;
-            string divOpenTag;
-            string divCloseTag;
+            string liClass;
+            string divClass;
             string chatOwner;
-            string msgBody;
-            string timestamp;
             string chatNameColor;
 
             chatOwnerColor.OwnerColorListing.TryGetValue(msg.remote_resource, out chatNameColor);
 
             if (isChatHeader && isKeyFromMe)
             {
-                liOpenTag = @"<li class='self-header'>";
-                divOpenTag = @"<div class='msg-bubble msg-self'>";  
+                liClass = "self-header";
+                divClass = "msg-bubble msg-self";  
             }
             else if (isChatHeader && !isKeyFromMe)
             {
-                liOpenTag = @"<li class='others-header'>";
-                divOpenTag = @"<div class='msg-bubble msg-others'>";
+                liClass = "others-header";
+                divClass = "msg-bubble msg-others";
             }
             else if (!isChatHeader && isKeyFromMe)
             {
-                liOpenTag = @"<li class='self'>";
-                divOpenTag = @"<div class='msg-bubble msg-self'>";
+                liClass = "self";
+                divClass = "msg-bubble msg-self";
             }
             else
             {
-                liOpenTag = @"<li class='others'>";
-                divOpenTag = @"<div class='msg-bubble msg-others'>";
+                liClass = "others";
+                divClass = "msg-bubble msg-others";
             }
-            
+
             if (isChatHeader && !isKeyFromMe)
-                chatOwner = @"<strong " + "class='author" + chatNameColor + "'>" + msg.remote_resource + @"</strong><br/>";
+                chatOwner = $@"<strong class='author{chatNameColor}'>{msg.remote_resource}</strong><br/>";
             else
                 chatOwner = "";
-
-            msgBody = msg.Data;
-            timestamp = @"<time><br/>" + FormatTimeStamp(msg.timestamp) + @"</time>";
-            liCloseTag = @"</li>";
-            divCloseTag = @"</div>";
-
-            var htmlTemplate = 
-                liOpenTag + 
-                    divOpenTag + 
-                        chatOwner + 
-                        msgBody + 
-                        timestamp + 
-                    divCloseTag + 
-                liCloseTag;
+            
+            var htmlTemplate = $@"<li class='{liClass}'>
+                                    <div class='{divClass}'>
+                                        {chatOwner}
+                                        {msg.Data}
+                                        <time><br/>{FormatTimeStamp(msg.timestamp)}</time>
+                                    </div>
+                                </li>";
 
             return htmlTemplate;
         }
 
         static private string FormatNormalChatReply(TableRow_Messages msg, bool isChatHeader, bool isKeyFromMe, ColorPicker chatOwnerColor)
         {
-            string liOpenTag;
-            string liCloseTag;
-            string divOpenTag1;
-            string divOpenTag2;
-            string divCloseTag;
+            string liClass;
+            string divClass1;
+            string divClass2;
             string chatOwner;
-            string chatReplyOwner;
-            string msgBody;
-            string msgReplyBody;
-            string timestamp;
             string chatNameColor;
             string replyNameColor;
 
@@ -205,119 +189,90 @@ namespace WhatsApp_MVC.Models
             //msg reply will always be in header mode, dont need to check for isChatHeader
             if (isKeyFromMe)
             {
-                liOpenTag = @"<li class='self-header'>";
-                divOpenTag1 = @"<div class='msg-bubble msg-self'>";
-                divOpenTag2 = @"<div class='msg-reply-text-bubble-self quoted" + replyNameColor + "'>";
+                liClass = "self-header";
+                divClass1 = "msg-bubble msg-self";
+                divClass2 = "msg-reply-text-bubble-self quoted";
             }
             else
             {
-                liOpenTag = @"<li class='others-header'>";
-                divOpenTag1 = @"<div class='msg-bubble msg-others'>";
-                divOpenTag2 = @"<div class='msg-reply-text-bubble-others quoted" + replyNameColor + "'>";
-            }            
+                liClass = "others-header";
+                divClass1 = "msg-bubble msg-others";
+                divClass2 = "msg-reply-text-bubble-others quoted";
+            }
 
             if (!isKeyFromMe)
-                chatOwner = @"<strong " + "class='author" + chatNameColor + "'>" + msg.remote_resource + @"</strong><br/>";
+                chatOwner = $@"<strong class='author{chatNameColor}'>{msg.remote_resource}</strong><br/>";
             else
                 chatOwner = "";
 
-            chatReplyOwner = @"<strong " + "class='author" + replyNameColor + "'>" + msg.Table_Messsages_Quotes.remote_resource + @"</strong><br/>";
-            msgBody = msg.Data;
-            msgReplyBody = msg.Table_Messsages_Quotes.Data;
-            timestamp = @"<time><br/>" + FormatTimeStamp(msg.timestamp) + @"</time>";
-            liCloseTag = @"</li>";
-            divCloseTag = @"</div>";
-
-            var htmlTemplate =
-                liOpenTag +
-                    divOpenTag1 +
-                        chatOwner +
-                        divOpenTag2 + 
-                            chatReplyOwner + 
-                            msgReplyBody + 
-                        divCloseTag + 
-                        msgBody +
-                        timestamp +
-                    divCloseTag +
-                liCloseTag;
+            var htmlTemplate = $@"<li class='{liClass}'>
+                                    <div class='{divClass1}'>
+                                        {chatOwner}
+                                        <div class='{divClass2}{replyNameColor}'>
+                                            <strong class='author{replyNameColor}'>{msg.Table_Messsages_Quotes.remote_resource}</strong><br/>
+                                            {msg.Table_Messsages_Quotes.Data}
+                                        </div>
+                                        {msg.Data}
+                                        <time><br/>{FormatTimeStamp(msg.timestamp)}</time>
+                                    </div>
+                                </li>";
 
             return htmlTemplate;
         }        
 
         static private string FormatImage(TableRow_Messages msg, bool isChatHeader, bool isKeyFromMe, ColorPicker chatOwnerColor)
         {
-            string liOpenTag;
-            string liCloseTag;
-            string divOpenTag;
-            string divCloseTag;
-            string imgTag;
+            string liClass;
+            string divClass;
             string chatOwner;
-            string caption;
-            string timestamp;
             string chatNameColor;
 
             chatOwnerColor.OwnerColorListing.TryGetValue(msg.remote_resource, out chatNameColor);
 
             if (isChatHeader && isKeyFromMe)
             {
-                liOpenTag = @"<li class='self-header'>";
-                divOpenTag = @"<div class='img-container msg-self'>";
+                liClass = "self-header";
+                divClass = "img-container msg-self";
             }
             else if (isChatHeader && !isKeyFromMe)
             {
-                liOpenTag = @"<li class='others-header'>";  
-                divOpenTag = @"<div class='img-container msg-others'>";
+                liClass = "others-header";  
+                divClass = "img-container msg-others";
             }
             else if (!isChatHeader && isKeyFromMe)
             {
-                liOpenTag = @"<li class='self'>";
-                divOpenTag = @"<div class='img-container msg-self'>";
+                liClass = "self";
+                divClass = "img-container msg-self";
             }
             else
             {
-                liOpenTag = @"<li class='others'>";
-                divOpenTag = @"<div class='img-container msg-others'>";
+                liClass = "others";
+                divClass = "img-container msg-others";
             }
-            
+
             if (isChatHeader && !isKeyFromMe)
-                chatOwner = @"<strong " + "class='author" + chatNameColor + "'>" + msg.remote_resource + @"</strong><br/>";
+                chatOwner = $@"<strong class='author{chatNameColor}'>{msg.remote_resource}</strong><br/>";
             else
                 chatOwner = "";            
-
-            imgTag = @"<img src='../Content/IMG/image1.jpg' />";
-            caption = msg.media_caption;
-            timestamp = @"<time><br/>" + FormatTimeStamp(msg.timestamp) + @"</time>";
-            liCloseTag = @"</li>";
-            divCloseTag = @"</div>";
-
-            var htmlTemplate =
-                liOpenTag +
-                    divOpenTag +
-                        chatOwner + 
-                        imgTag + 
-                        caption +
-                        timestamp +
-                    divCloseTag +
-                liCloseTag;
+            
+            var htmlTemplate = $@"<li class='{liClass}'>
+                                    <div class='{divClass}'>
+                                        {chatOwner}
+                                        <img src='../Content/IMG/image1.jpg' />
+                                        {msg.media_caption}
+                                        <time><br/>{FormatTimeStamp(msg.timestamp)}</time>
+                                    </div>
+                                </li>";
 
             return htmlTemplate;
         }
 
         static private string FormatImageReply(TableRow_Messages msg, bool isChatHeader, bool isKeyFromMe, ColorPicker chatOwnerColor)
         {
-            string liOpenTag;
-            string liCloseTag;
-            string divOpenTag1;
-            string divOpenTag2;
-            string divOpenTag3;
-            string divOpenTag4;
-            string divCloseTag;
-            string imgTag;
+            string liClass;
+            string divClass1;
+            string divClass2;
             string chatOwner;
-            string chatReplyOwner;
-            string msgBody;
-            string caption;
-            string timestamp;
             string chatNameColor;
             string replyNameColor;
 
@@ -327,63 +282,47 @@ namespace WhatsApp_MVC.Models
             //msg reply will always be in header mode, dont need to check for isChatHeader
             if (isKeyFromMe)
             {
-                liOpenTag = @"<li class='self-header'>";
-                divOpenTag1 = @"<div class='msg-bubble msg-self'>";
-                divOpenTag2 = @"<div class='msg-reply-image-bubble-self quoted" + replyNameColor + "'>";
+                liClass = "self-header";
+                divClass1 = "msg-bubble msg-self";
+                divClass2 = "msg-reply-image-bubble-self quoted";
             }
             else
             {
-                liOpenTag = @"<li class='others-header'>";
-                divOpenTag1 = @"<div class='msg-bubble msg-others'>";
-                divOpenTag2 = @"<div class='msg-reply-image-bubble-others quoted" + replyNameColor + "'>";
+                liClass = "others-header";
+                divClass1 = "msg-bubble msg-others";
+                divClass2 = "msg-reply-image-bubble-others quoted";
             }
 
             if (!isKeyFromMe)
-                chatOwner = @"<strong>" + msg.remote_resource + @"</strong><br/>";
+                chatOwner = $@"<strong>{msg.remote_resource}</strong><br/>";
             else
                 chatOwner = "";
-
-            chatReplyOwner = @"<strong " + "class='author" + replyNameColor + "'>" + msg.Table_Messsages_Quotes.remote_resource + @"</strong><br/>";            
-            divOpenTag3 = @"<div>";
-            divOpenTag4 = @"<div class='image-reply-container'>";
-            imgTag = @"<img src='../Content/IMG/image1.jpg' class='image-reply' />";
-            caption = msg.Table_Messsages_Quotes.media_caption;
-            msgBody = msg.Data;
-            timestamp = @"<time><br/>" + FormatTimeStamp(msg.timestamp) + @"</time>";
-            liCloseTag = @"</li>";
-            divCloseTag = @"</div>";
-
-            var htmlTemplate =
-                liOpenTag +
-                    divOpenTag1 +
-                        chatOwner +
-                        divOpenTag2 + 
-                            divOpenTag3 + 
-                                chatReplyOwner +
-                                caption + 
-                            divCloseTag + 
-                            divOpenTag4 + 
-                                imgTag + 
-                            divCloseTag + 
-                        divCloseTag +
-                        msgBody +
-                        timestamp +
-                    divCloseTag +
-                liCloseTag;
+            
+            var htmlTemplate = $@"<li class='{liClass}'>
+                                    <div class='{divClass1}'>
+                                        {chatOwner}
+                                        <div class='{divClass2}{replyNameColor}'>
+                                            <div>
+                                                <strong class='author{replyNameColor}'>{msg.Table_Messsages_Quotes.remote_resource}</strong><br/>
+                                                {msg.Table_Messsages_Quotes.media_caption}
+                                            </div>
+                                            <div class='image-reply-container'>
+                                                <img src='../Content/IMG/image1.jpg' class='image-reply' />
+                                            </div>
+                                        </div>
+                                        {msg.Data}
+                                        <time><br/>{FormatTimeStamp(msg.timestamp)}</time>
+                                    </div>
+                                </li>";
 
             return htmlTemplate;
         }
 
         static private string FormatVideo(TableRow_Messages msg, bool isChatHeader, bool isKeyFromMe, ColorPicker chatOwnerColor)
         {
-            string liOpenTag;
-            string liCloseTag;
-            string divOpenTag;
-            string divCloseTag;
-            string videoTag;
+            string liClass;
+            string divClass;
             string chatOwner;
-            string caption;
-            string timestamp;
             string chatNameColor;
 
             chatOwnerColor.OwnerColorListing.TryGetValue(msg.remote_resource, out chatNameColor);
@@ -391,35 +330,28 @@ namespace WhatsApp_MVC.Models
             //video chat is always in header mode
             if (isKeyFromMe)
             {
-                liOpenTag = @"<li class='self-header'>";
-                divOpenTag = @"<div class='video-container msg-self'>";
+                liClass = "self-header";
+                divClass = "video-container msg-self";
             }
             else
             {
-                liOpenTag = @"<li class='others-header'>";
-                divOpenTag = @"<div class='video-container msg-others'>";
+                liClass = "others-header";
+                divClass = "video-container msg-others";
             }
-            
+
             if (!isKeyFromMe)
-                chatOwner = @"<strong " + "class='author" + chatNameColor + "'>" + msg.remote_resource + @"</strong><br/>";
+                chatOwner = $@"<strong class='author{chatNameColor}'>{msg.remote_resource}</strong><br/>";
             else
                 chatOwner = "";
-            
-            videoTag = @"<video controls><source src='../Content/Videos/video1.mp4' type='video/mp4' />Video format not supported</video>";
-            caption = msg.media_caption;
-            timestamp = @"<time><br/>" + FormatTimeStamp(msg.timestamp) + @"</time>";
-            liCloseTag = @"</li>";
-            divCloseTag = @"</div>";
 
-            var htmlTemplate =
-                liOpenTag +
-                    divOpenTag +
-                        chatOwner +
-                        videoTag +
-                        caption +
-                        timestamp +
-                    divCloseTag +
-                liCloseTag;
+            var htmlTemplate = $@"<li class='{liClass}'>
+                                    <div class='{divClass}>
+                                        {chatOwner}
+                                        <video controls><source src='../Content/Videos/video1.mp4' type='video/mp4' />Video format not supported</video>
+                                        {msg.media_caption}
+                                        <time><br/>{FormatTimeStamp(msg.timestamp)}</time>
+                                    </div>
+                                </li>";            
 
             return htmlTemplate;
         }
